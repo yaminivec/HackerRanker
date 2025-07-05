@@ -1,0 +1,86 @@
+/***************
+Given a list of student grades, your task is to apply a rounding policy: if a grade is less than 38, it remains unchanged since it is failing;
+if the grade is 38 or higher and the difference between the grade and the next multiple of 5 is less than 3, round the grade up to that next multiple of 5. Otherwise, leave the grade as is. 
+Return the list of adjusted grades after applying this rule to each student.
+*******************/
+
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'gradingStudents' function below.
+     *
+     * The function is expected to return an INTEGER_ARRAY.
+     * The function accepts INTEGER_ARRAY grades as parameter.
+     */
+
+    public static List<Integer> gradingStudents(List<Integer> grades) {
+    // Write your code here
+    LinkedList<Integer> answers = new LinkedList<>();
+    
+    for(int i=0;i<grades.size();i++)
+    { 
+    int temp=grades.get(i);  
+     if(temp<38){
+        answers.add(temp);
+     }
+     else{
+        while(temp%5!=0){
+            temp++;
+        }
+        if(temp-(grades.get(i))<3){
+            answers.add(temp);
+        }
+        else{
+            answers.add(grades.get(i));
+        }
+     }
+    }
+  
+    return answers;
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        int gradesCount = Integer.parseInt(bufferedReader.readLine().trim());
+
+        List<Integer> grades = IntStream.range(0, gradesCount).mapToObj(i -> {
+            try {
+                return bufferedReader.readLine().replaceAll("\\s+$", "");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        })
+            .map(String::trim)
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        List<Integer> result = Result.gradingStudents(grades);
+
+        bufferedWriter.write(
+            result.stream()
+                .map(Object::toString)
+                .collect(joining("\n"))
+            + "\n"
+        );
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
