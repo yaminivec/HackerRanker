@@ -1,0 +1,107 @@
+/*
+ * Sam's house is located between points s and t on the x-axis.
+ * There is an apple tree at point 'a' (to the left of the house),
+ * and an orange tree at point 'b' (to the right of the house).
+ *
+ * When apples and oranges fall, they land at certain distances from their trees.
+ * These distances can be positive (to the right) or negative (to the left).
+ *
+ * Your task:
+ * 1. Add each fruit's distance to its tree position to get the landing point.
+ * 2. Count how many apples and oranges land on the house (between s and t, inclusive).
+ *
+ * Example Input:
+ * s = 7, t = 11          // Sam's house is from point 7 to 11
+ * a = 5, b = 15          // Apple tree at 5, Orange tree at 15
+ * apples = [-2, 2, 1]    // Apples fall to positions: 3, 7, 6 → only 7 is on the house
+ * oranges = [5, -6]      // Oranges fall to positions: 20, 9 → only 9 is on the house
+ *
+ * Output:
+ * 1   ← number of apples on the house
+ * 1   ← number of oranges on the house
+ */
+//CODE
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'countApplesAndOranges' function below.
+     *
+     * The function accepts following parameters:
+     *  1. INTEGER s
+     *  2. INTEGER t
+     *  3. INTEGER a
+     *  4. INTEGER b
+     *  5. INTEGER_ARRAY apples
+     *  6. INTEGER_ARRAY oranges
+     */
+
+    public static void countApplesAndOranges(int s, int t, int a, int b, List<Integer> apples, List<Integer> oranges) {
+    // Write your code here
+    int apples_on_samhouse=0;
+    int oranges_on_samhouse=0;
+    for(int i=0;i<apples.size();i++){
+        int temp=a+apples.get(i);
+        if(temp>=s && temp<=t){
+            apples_on_samhouse++;
+        }
+    }
+    for(int j=0;j<oranges.size();j++){
+        int temp=b+oranges.get(j);
+        if(temp>=s && temp<=t){
+            oranges_on_samhouse++;
+        }
+    }
+    System.out.println(apples_on_samhouse);
+    System.out.println(oranges_on_samhouse);
+
+    }
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int s = Integer.parseInt(firstMultipleInput[0]);
+
+        int t = Integer.parseInt(firstMultipleInput[1]);
+
+        String[] secondMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int a = Integer.parseInt(secondMultipleInput[0]);
+
+        int b = Integer.parseInt(secondMultipleInput[1]);
+
+        String[] thirdMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int m = Integer.parseInt(thirdMultipleInput[0]);
+
+        int n = Integer.parseInt(thirdMultipleInput[1]);
+
+        List<Integer> apples = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        List<Integer> oranges = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
+            .map(Integer::parseInt)
+            .collect(toList());
+
+        Result.countApplesAndOranges(s, t, a, b, apples, oranges);
+
+        bufferedReader.close();
+    }
+}
