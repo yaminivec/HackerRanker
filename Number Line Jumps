@@ -1,0 +1,90 @@
+/*
+ * Problem: Kangaroo Jump
+ *
+ * Two kangaroos are jumping on a number line. The first kangaroo starts at position x1
+ * and jumps v1 meters per jump. The second kangaroo starts at position x2 and jumps v2 meters per jump.
+ *
+ * Your task is to determine if both kangaroos will land at the same position
+ * after making the same number of jumps.
+ *
+ * Return "YES" if they meet at the same location at the same time, otherwise return "NO".
+ *
+ * Example:
+ * Input: x1 = 0, v1 = 3, x2 = 4, v2 = 2
+ * Output: YES
+ * Explanation: After 4 jumps, both are at position 12.
+ */
+//CODE
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+import java.util.stream.*;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+
+class Result {
+
+    /*
+     * Complete the 'kangaroo' function below.
+     *
+     * The function is expected to return a STRING.
+     * The function accepts following parameters:
+     *  1. INTEGER x1
+     *  2. INTEGER v1
+     *  3. INTEGER x2
+     *  4. INTEGER v2
+     */
+
+    public static String kangaroo(int x1, int v1, int x2, int v2) {
+    // Write your code here
+    int count1=x1;
+    int count2=x2;
+    String ans="NO";
+    
+    for(int i=0;i<100000;i++){
+        if (count1==count2){
+            ans="YES";
+            break;
+        }
+         count1+=v1;
+         count2+=v2;
+         
+    }  
+
+    return ans;
+}
+
+
+    
+
+}
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+        String[] firstMultipleInput = bufferedReader.readLine().replaceAll("\\s+$", "").split(" ");
+
+        int x1 = Integer.parseInt(firstMultipleInput[0]);
+
+        int v1 = Integer.parseInt(firstMultipleInput[1]);
+
+        int x2 = Integer.parseInt(firstMultipleInput[2]);
+
+        int v2 = Integer.parseInt(firstMultipleInput[3]);
+
+        String result = Result.kangaroo(x1, v1, x2, v2);
+
+        bufferedWriter.write(result);
+        bufferedWriter.newLine();
+
+        bufferedReader.close();
+        bufferedWriter.close();
+    }
+}
